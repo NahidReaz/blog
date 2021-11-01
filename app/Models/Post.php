@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-
-use App\Http\Controllers\PostController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
@@ -15,6 +13,11 @@ class Post extends Model
     protected $guarded=[];
     protected $with=[ 'category','author'];
     //protected  $fillable = [ 'title'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
 
     public function category(): BelongsTo

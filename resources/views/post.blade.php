@@ -69,6 +69,11 @@
                     </div>
                 </div>
             </article>
+            <section class="col-span-6 col-start-3 mt-10 space-y-6">
+                @foreach($post->comments as $comment)
+                <x-post-comment :comment="$comment"> </x-post-comment>
+                @endforeach
+            </section>
         </main>
 
 
