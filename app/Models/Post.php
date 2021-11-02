@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Post extends Model
 {
     use HasFactory;
-    protected $guarded=[];
+
     protected $with=[ 'category','author'];
-    //protected  $fillable = [ 'title'];
+
 
     public function comments()
     {
