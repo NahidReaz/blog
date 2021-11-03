@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionsController;
 use App\Models\Category;
+use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,27 +20,7 @@ use App\Http\Controllers\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('newsletter',function (){
-    request()->validate(['email'=>'required|email']);
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us5'
-    ]);
-    try {
-        $response = $mailchimp->lists->addListMember('471fc4a5a8',[
-            'email_address'=>request('email'),
-            'status'=>'subscribed'
-        ]);
-    } catch (\Exception $e){
-        throw \Illuminate\Validation\ValidationException::withMessages([
-           'email'=>'This email can not be added'
-        ]);
-    }
-
-    return redirect('/')->with('success','Subscription added');
-});
+Route::post('newsletter', NewsletterController::class);
 Route::get('/', [PostController::class,'index'])->name('home');
 Route::get('posts/{post:slug}',[PostController::class,'show']);
 
@@ -65,3 +48,5 @@ Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']
 Route::post('logout',[SessionsController::class,'destroy'])->middleware('auth');
 Route::get('login',[SessionsController::class,'create'])->middleware('guest');
 Route::post('login',[SessionsController::class,'store']);
+
+Route::get('admin/posts/create',[PostController::class,'create'])->middleware('admin');

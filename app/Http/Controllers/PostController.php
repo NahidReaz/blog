@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
@@ -26,6 +27,13 @@ class PostController extends Controller
     }
     public function show(Post $post){
         return view('post',['post'=> $post]);
+    }
+
+    Public function create(){
+
+
+
+        return view('create');
     }
 
 }
