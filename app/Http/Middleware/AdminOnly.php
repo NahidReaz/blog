@@ -17,18 +17,12 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->guest()){
+        /*if (auth()->guest()){
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        if (auth()->user()->username ==! 'nahidreaz'){
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        abort_if(auth()->user()?->username !== 'nahidreaz',Response::HTTP_FORBIDDEN);*/
 
-
-        /*if(auth()->user()?->username ===! 'nahidreaz'){
-            abort(Response::HTTP_FORBIDDEN);
-        }*/
         return $next($request);
     }
 }

@@ -43,14 +43,30 @@
                 </div>
 
                 <div class="mb-6">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
+                           for="password"
+                    >
+                        Password
+                    </label>
+
+                    <input class="border border-gray-400 p-2 w-full"
+                           type="password"
+                           name="password"
+                           id="password"
+                           required
+                    >
+                    @error('password')
+                    <p class="mt-10 text-red-500 text-xs">{{$message}}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-6">
                     <button type="submit"
                             class="bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500"
                     >
                         Submit
                     </button>
                 </div>
-
-
 
             </form>
         </main>
